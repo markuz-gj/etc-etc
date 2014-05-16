@@ -1,0 +1,46 @@
+{
+  "name": "etc-etc",
+  "version": "0.0.0",
+  "description": "middleware for serving markdown files as rendered HTML",
+  "keywords": [
+    "markdown",
+    "connect",
+    "github",
+    "serve",
+    "middleware"
+  ],
+  "author": "Markuz GJ",
+  "repository": {
+    "url": "git://github.com/markuz-gj/marked-middleware.git"
+  },
+  "dependencies": {
+    "ejs": "1.0.0",
+    "es6-promise": "1.0.0",
+    "gulp": "^3.6.2",
+    "gulp-jsdoc": "^0.1.4",
+    "gulp-util": "^2.2.14",
+    "marked": "0.3.2",
+    "pygmentize-bundled": "2.1.0",
+    "request": "2.34.0"
+  },
+  "devDependencies": {
+    "chai": "1.9.1",
+    "coffee-script": "^1.7.1",
+    "connect": "2.8.4",
+    "connect-livereload": "0.4.0",
+    "express": "4.2.0",
+    "gulp": "3.6.2",
+    "gulp-livereload": "1.5.0",
+    "gulp-util": "2.2.14",
+    "istanbul": "0.2.9",
+    "mocha": "1.18.2",
+    "sinon": "1.9.1",
+    "sinon-chai": "2.5.0",
+    "super-stream.through": "0.0.2",
+    "tiny-lr": "0.0.7"
+  },
+  "files": [
+    "assets",
+    "index.js"
+  ]
+}
