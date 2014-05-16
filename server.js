@@ -1,6 +1,6 @@
 var path = require('path') 
 , gulp = require('gulp')
-, express = require('express')
+// , express = require('express')
 , conn = require('connect')
 , gutil = require('gulp-util')
 , livereload = require('gulp-livereload')
@@ -10,10 +10,10 @@ var path = require('path')
 , log = gutil.log
 , bold = gutil.colors.bold
 , magenta = gutil.colors.magenta
-
 ;
 
 conn.livereload = require('connect-livereload')
+conn.markdown = require('marked-middleware')
 
 /**
   * @param {String} glob - glob pattern to watch. NOTE: doesn't support an array.
@@ -22,18 +22,27 @@ conn.livereload = require('connect-livereload')
   * It creates a express/livereload servers and server the `./coverage/index.html`, and `./*.md` diles
  */
 module.exports = function server (opts) {
-  var app = express()
+  var app = conn()
+  , path = require('path')
   , lrUp = new Deferred()
-  , glob = "./coverage/index.html"
+  // , glob = ["./coverage/index.html"
+  , GLOB
   , serverLR
   , PORT
   , PORT_LR
+  , ROOT
   ;
 
-  opts = opts || {port: 4001}
-  PORT = opts.port
-  PORT_LR = PORT + 1
-  
+  opts = opts || {}
+  PORT = opts.port || 4001
+  PORT_LR = opts.lrPort || PORT + 1
+  ROOT = opts.root || process.cwd()
+  GLOB = opts.glob || [
+    path.join(ROOT, '*.md')
+  , path.join(ROOT, 'coverage/**/*')
+  , path.join(ROOT, 'jsdoc/**/*')
+  ]
+
   serverLR = tinylr({
     liveCSS: false,
     liveJs: false,
@@ -47,15 +56,18 @@ module.exports = function server (opts) {
 
   app.use(conn.errorHandler({dumpExceptions: true, showStack: true}));
   app.use(conn.livereload({port: PORT_LR}));
-  app.use('/coverage', express["static"](path.resolve('./coverage')));
+
+  app.use(conn.markdown({directory: ROOT}))
+  app.use('/coverage', conn.static(path.resolve('./coverage')));
+  app.use('/jsdoc', conn.static(path.resolve('./jsdoc')));
 
   app.listen(PORT, function() {
     log(bold("express server running on port: " + magenta(PORT)));
   });
 
-  return function() {
+  return function(){
     var firstLoad = true;
-    gulp.watch(glob, function(evt) {
+    return gulp.watch(GLOB, function(evt) {
       lrUp.then(function() {
         gulp.src(evt.path).pipe(livereload(serverLR));
         if (firstLoad){
@@ -68,6 +80,7 @@ module.exports = function server (opts) {
       });
     });
   };
+
 
 
 

@@ -62,10 +62,10 @@ function writeReadme() {
     
     writeFile('./README.md', cache.out.join('\n'), function(err) {
       if (err) next(err)
-      next(null, vfs);
-    });
-  });
-};
+      next(null, vfs)
+    })
+  })
+}
 
 /**
   * A `Transform` Stream which un-escape `##\#`  
@@ -81,8 +81,8 @@ function fixMarkdown () {
   return thr(function(vfs, enc, next) {
     vfs.contents = new Buffer(vfs.contents.toString().replace(/\\#/g, '#').replace('\*#', '##'))
     next(null, vfs)
-  });
-};
+  })
+}
 
 /**
   * extract all block code language type metatdata. 
@@ -92,9 +92,9 @@ function fixMarkdown () {
 function fixJsdoc () {
   return thr(function(vfs, enc, next) {
     vfs.contents = new Buffer(vfs.contents.toString().replace(/(```javascript|```)/g, ''));
-    next(null, vfs);
-  });
-};
+    next(null, vfs)
+  })
+}
 
 /**
  * @param {String|Array<String>} glob - glob pattern to match
