@@ -124,13 +124,16 @@ module.exports = function compileDoc (src) {
   // }
 
   return function() {
-    return gulp.src(src)
-      .pipe(fixMarkdown())
-      .pipe(writeReadme())
-      .pipe(fixJsdoc())
-      .pipe(jsdoc.parser(config))
-      .pipe(jsdoc.generator('jsdoc'))
-      // .pipe(jsdoc.generator('jsdoc', template))
+    shell('rm -rf ./jsdoc').then(function(){
+      gulp.src(src)
+        .pipe(fixMarkdown())
+        .pipe(writeReadme())
+        .pipe(fixJsdoc())
+        .pipe(jsdoc.parser(config))
+        .pipe(jsdoc.generator('jsdoc'))
+        // .pipe(jsdoc.generator('jsdoc', template))      
+    })
+
   }
 }
 
