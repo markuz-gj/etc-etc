@@ -124,7 +124,6 @@ module.exports = function compileDoc (src) {
   // }
 
   return function() {
-    shell('rm -rf ./jsdoc').then(function(){
       gulp.src(src)
         .pipe(fixMarkdown())
         .pipe(writeReadme())
@@ -132,7 +131,6 @@ module.exports = function compileDoc (src) {
         .pipe(jsdoc.parser(config))
         .pipe(jsdoc.generator('jsdoc'))
         // .pipe(jsdoc.generator('jsdoc', template))      
-    })
 
   }
 }
