@@ -7,7 +7,7 @@ var shell = require("./shell")
 ;
 module.exports = function mocha (filename){
   return function(){
-    var cmd = './node_modules/.bin/mocha --compilers coffee:coffee-script/register ' +filename+ ' -R spec -t 30000;'
+    var cmd = './node_modules/.bin/mocha --compilers coffee:coffee-script/register ' +filename+ ' -R spec -t 1000;'
     ;
     shell(cmd)
       .then(console.log)

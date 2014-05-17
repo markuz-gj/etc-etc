@@ -1,6 +1,6 @@
 var path = require('path') 
 , gulp = require('gulp')
-// , express = require('express')
+, express = require('express')
 , conn = require('connect')
 , gutil = require('gulp-util')
 , livereload = require('gulp-livereload')
@@ -22,7 +22,7 @@ conn.markdown = require('marked-middleware')
   * It creates a express/livereload servers and server the `./coverage/index.html`, and `./*.md` diles
  */
 module.exports = function server (opts) {
-  var app = conn()
+  var app = express()
   , path = require('path')
   , lrUp = new Deferred()
   // , glob = ["./coverage/index.html"
@@ -58,8 +58,8 @@ module.exports = function server (opts) {
   app.use(conn.livereload({port: PORT_LR}));
 
   app.use(conn.markdown({directory: ROOT}))
-  app.use('/coverage', conn.static(path.resolve('./coverage')));
-  app.use('/jsdoc', conn.static(path.resolve('./jsdoc')));
+  app.use('/coverage', express.static('./coverage'));
+  app.use('/jsdoc', express.static('./jsdoc'));
 
   app.listen(PORT, function() {
     log(bold("express server running on port: " + magenta(PORT)));

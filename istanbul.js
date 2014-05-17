@@ -6,7 +6,7 @@ var shell = require("./shell")
  */
 module.exports = function istanbul (filename){
   return function(){
-    var cmd = './node_modules/.bin/istanbul cover -x spec --report html ./node_modules/.bin/_mocha --  --compilers coffee:coffee-script/register ' +filename+ ' -R spec -t 10000'
+    var cmd = './node_modules/.bin/istanbul cover -x spec --report html ./node_modules/.bin/_mocha --  --compilers coffee:coffee-script/register ' +filename+ ' -R spec -t 1000'
     ;
 
     shell(cmd)
