@@ -7,4 +7,6 @@ module.exports = {
 , exit: require('./exit')
 , server: require('./server')
 , jsdoc: require('./jsdoc')
+, rand: require('./rand')
+// , spec: require('./spec')
 }

@@ -23,7 +23,9 @@
     "marked": "0.3.2",
     "marked-middleware": "0.0.4",
     "pygmentize-bundled": "2.1.0",
-    "request": "2.34.0"
+    "readable-stream": "^1.0.27-1",
+    "request": "2.34.0",
+    "string.prototype.repeat": "^0.2.0"
   },
   "devDependencies": {
     "chai": "1.9.1",

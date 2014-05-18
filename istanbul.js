@@ -1,5 +1,8 @@
 var shell = require("./shell")
+, rand = require('./rand')
 ;
+
+// require('string.prototype.repeat')
 /**
  * @param {String} filename - filename to run istanbul against.
  * @returns {Function} - A gulp task
@@ -21,5 +24,10 @@ module.exports = function istanbul (filename){
         console.log(cache.join('\n'))
       })
       .catch(function(err){throw err})
+      .then(function(){
+        console.log()
+        console.log(rand(4))
+      })
+
   }
 };
